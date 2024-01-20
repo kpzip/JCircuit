@@ -5,14 +5,14 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/8.1.1/userguide/building_java_projects.html
  */
- 
-archivesBaseName = project.archives_base_name + "-" + project.version
-version = project.version
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
 }
+
+archivesBaseName = project.archives_base_name + "-" + project.version
+version = project.version
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -21,10 +21,10 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:${junit_version}'
+    testImplementation "org.junit.jupiter:junit-jupiter:${junit_version}"
 
     // Math Library
-    api 'org.apache.commons:commons-math3:${project.apache_commons_math_version}'
+    implementation "org.apache.commons:commons-math3:${project.apache_commons_math_version}"
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
