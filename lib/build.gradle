@@ -11,7 +11,7 @@ plugins {
     id 'java-library'
 }
 
-archivesBaseName = project.archives_base_name + "-" + project.version
+archivesBaseName = project.archives_base_name
 version = project.version
 
 repositories {
