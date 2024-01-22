@@ -1,5 +1,7 @@
-package xyz.kpzip.circuitsim.cmdline;
+package xyz.kpzip.circuitsim;
 
+import xyz.kpzip.circuitsim.cmdline.ArgParser;
+import xyz.kpzip.circuitsim.cmdline.CmdLineMode;
 import xyz.kpzip.circuitsim.gui.GuiMode;
 
 public final class Main {
