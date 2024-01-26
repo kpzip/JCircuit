@@ -79,6 +79,6 @@ edit the source files to your hearts content. When you want to build the project
 ```
 If you're on linux, you may need to make the file executable for this to work
 ```bash
-chmod +x gradlew.bat
+chmod +x gradlew
 ```
 The compiled `.jar` file will be in the `/lib/build/libs/` directory.
