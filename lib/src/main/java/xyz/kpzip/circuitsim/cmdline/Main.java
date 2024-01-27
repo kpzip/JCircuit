@@ -8,14 +8,14 @@ public final class Main {
 
 	public static void main(String[] args) {
 		
-		boolean gui = ArgParser.checkForArg(ArgParser.NOGUI, args);
+		boolean nogui = ArgParser.checkForArg(ArgParser.NOGUI, args);
 		int exitcode;
 		
-		if (gui) {
-			exitcode = GuiMode.run();
+		if (nogui) {
+			exitcode = CmdLineMode.run(args);
 			System.exit(exitcode);
 		} else {
-			exitcode = CmdLineMode.run(args);
+			exitcode = GuiMode.run();
 			System.exit(exitcode);
 		}
 	}

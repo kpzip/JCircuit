@@ -47,31 +47,7 @@ public class Circuit {
 		
 		//enter values for component constraints
 		int componentConnectionIndex = 0;
-//		for (Component c : components) {
-//			
-//			ConnectionPointPair[] connections = c.connections();
-//			double[] constraints = c.constraints();
-//			
-//			for (int i = 0; i < connections.length; i++) {
-//				
-//				double[] coefficients = new double[numToSolveFor];
-//				
-//				//unpack connection information
-//				ConnectionPointPair connection = connections[i];
-//				double currentDependence = constraints[3*i];
-//				double voltageDependence = constraints[3*i + 1];
-//				double constantDependence = constraints[3*i + 2];
-//				
-//				coefficients[componentConnectionIndex] = currentDependence;
-//				coefficients[numCurrents + connection.first.id] = voltageDependence;
-//				coefficients[numCurrents + connection.second.id] = -voltageDependence;
-//				constants[componentConnectionIndex] = constantDependence;
-//				
-//				matrix[componentConnectionIndex] = coefficients;
-//				
-//				componentConnectionIndex++;
-//			}
-//		}
+
 		for (Component c : components) {
 			
 			ConnectionPointPair[] connections = c.connections();
@@ -96,19 +72,6 @@ public class Circuit {
 				
 				constants[componentConnectionIndex] = constantDependence;
 				matrix[componentConnectionIndex] = coefficients;
-				
-				//unpack connection information
-//				ConnectionPointPair connection = connections[i];
-//				double currentDependence = constraints[3*i];
-//				double voltageDependence = constraints[3*i + 1];
-//				double constantDependence = constraints[3*i + 2];
-//				
-//				coefficients[componentConnectionIndex] = currentDependence;
-//				coefficients[numCurrents + connection.first.id] = voltageDependence;
-//				coefficients[numCurrents + connection.second.id] = -voltageDependence;
-//				constants[componentConnectionIndex] = constantDependence;
-//				
-//				matrix[componentConnectionIndex] = coefficients;
 				
 				componentConnectionIndex++;
 			}

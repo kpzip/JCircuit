@@ -37,11 +37,15 @@ public class SPSTSwitch extends Abstract2NodeComponent {
 	}
 	
 	public void toggle() {
-		on = !on;
+		on ^= on;
 	}
 	
 	public void setOn(boolean on) {
 		this.on = on;
+	}
+	
+	public void setOn() {
+		this.on = true;
 	}
 
 }

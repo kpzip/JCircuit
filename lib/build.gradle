@@ -22,6 +22,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation "org.junit.jupiter:junit-jupiter:${junit_version}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
     // Math Library
     implementation "org.apache.commons:commons-math3:${project.apache_commons_math_version}"
