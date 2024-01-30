@@ -9,7 +9,7 @@ public final class GuiMode {
 	public static int run() {
 		MainWindow window = new MainWindow();
 		while (!window.isClosed) {}
-		return 1;
+		return 0;
 	}
 
 }

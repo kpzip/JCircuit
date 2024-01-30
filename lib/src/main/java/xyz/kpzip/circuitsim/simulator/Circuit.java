@@ -20,7 +20,7 @@ public class Circuit {
 	public static boolean DEBUG = false;
 	
 	//Nodes should always be in ascending order with no gaps e.g. 0,1,2,3,4,5 NOT 0,2,3,5,6,7,9
-	//Current is determined to flow from high id nodes to low id nodes
+	//Positive Current is determined to flow from high id nodes to low id nodes
 	private TreeSet<ConnectionPoint> connectionPoints;
 	private ArrayList<Component> components;
 	private ConnectionPoint ground;
@@ -127,9 +127,7 @@ public class Circuit {
 		//set current and voltage values
 		int valPtr = 0;
 		for (Component c : components) {
-			int count;
-			c.updateCurrent(Arrays.copyOfRange(solutions, valPtr, valPtr + (count = c.connectionCount())));
-			valPtr += count;
+			c.updateCurrent(Arrays.copyOfRange(solutions, valPtr, valPtr += c.connectionCount()));
 		}
 		
 		for (ConnectionPoint p : connectionPoints) {

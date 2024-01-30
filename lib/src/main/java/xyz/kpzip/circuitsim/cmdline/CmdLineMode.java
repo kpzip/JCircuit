@@ -6,6 +6,6 @@ public final class CmdLineMode {
 
 	public static int run(String[] args) {
 
-		return 1;
+		return 0;
 	}
 }
