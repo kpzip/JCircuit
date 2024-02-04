@@ -1,14 +1,15 @@
-package xyz.kpzip.circuitsim.gui.frames.menus.mainmenu;
+package xyz.kpzip.circuitsim.gui.menus.file;
 
 import java.awt.FileDialog;
-import java.awt.Menu;
-import java.awt.MenuItem;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import xyz.kpzip.circuitsim.file.CircuitFileHandler;
 import xyz.kpzip.circuitsim.gui.frames.MainWindow;
-import xyz.kpzip.circuitsim.gui.frames.dialog.ErrorDialog;
 
-public class FileMenu extends Menu {
+public class FileMenu extends JMenu {
 
 	/**
 	 * Serial id
@@ -24,7 +25,7 @@ public class FileMenu extends Menu {
 	
 	
 	
-	private static class SaveMenuItem extends MenuItem {
+	private static class SaveMenuItem extends JMenuItem {
 
 		/**
 		 * serial id
@@ -39,14 +40,15 @@ public class FileMenu extends Menu {
 				if (MainWindow.INSTANCE.getFilepath() == null) {
 					FileDialog f = new FileDialog(MainWindow.INSTANCE, "Save", FileDialog.SAVE);
 					f.setVisible(true);
-				
+					if (f.getFile() == null) return;
+					
 					path = f.getDirectory() + f.getFile();
 					CircuitFileHandler.save(path);
 				}
 				else {
 					path = MainWindow.INSTANCE.getFilepath();
 					if (!CircuitFileHandler.save(path)) {
-						
+						JOptionPane.showMessageDialog(MainWindow.INSTANCE, "Error Saving File");
 					}
 				}
 			});
@@ -54,7 +56,7 @@ public class FileMenu extends Menu {
 		
 	}
 	
-	private static class SaveAsMenuItem extends MenuItem {
+	private static class SaveAsMenuItem extends JMenuItem {
 
 		/**
 		 * serial id
@@ -66,9 +68,10 @@ public class FileMenu extends Menu {
 			addActionListener((actionlistener) -> {
 				FileDialog f = new FileDialog(MainWindow.INSTANCE, "Save", FileDialog.SAVE);
 				f.setVisible(true);
+				if (f.getFile() == null) return;
 				String path = f.getDirectory() + f.getFile();
 				if (!CircuitFileHandler.save(path)) {
-					
+					JOptionPane.showMessageDialog(MainWindow.INSTANCE, "Error Saving File");
 				}
 				
 			});
@@ -76,7 +79,7 @@ public class FileMenu extends Menu {
 		
 	}
 	
-	private static class OpenMenuItem extends MenuItem {
+	private static class OpenMenuItem extends JMenuItem {
 
 		/**
 		 * serial id
@@ -88,9 +91,10 @@ public class FileMenu extends Menu {
 			addActionListener((actionlistener) -> {
 				FileDialog f = new FileDialog(MainWindow.INSTANCE, "Open", FileDialog.LOAD);
 				f.setVisible(true);
+				if (f.getFile() == null) return;
 				String path = f.getDirectory() + f.getFile();
 				if (!CircuitFileHandler.open(path)) {
-					new ErrorDialog(MainWindow.INSTANCE, "Error", "Error Opening file", false);
+					JOptionPane.showMessageDialog(MainWindow.INSTANCE, "Error Opening File");
 				}
 			});
 		}

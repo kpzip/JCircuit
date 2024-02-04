@@ -1,15 +1,18 @@
 package xyz.kpzip.circuitsim.gui.frames;
 
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import xyz.kpzip.circuitsim.gui.GuiInfo;
-import xyz.kpzip.circuitsim.gui.frames.menus.mainmenu.MainMenuBar;
+import javax.swing.JFrame;
 
-public class MainWindow extends Frame {
+import xyz.kpzip.circuitsim.gui.GuiInfo;
+import xyz.kpzip.circuitsim.gui.menus.MainMenuBar;
+import xyz.kpzip.circuitsim.gui.menus.mainmenu.CircuitBoard;
+
+public class MainWindow extends JFrame {
 	
 	/**
 	 * serializeable id
@@ -23,6 +26,8 @@ public class MainWindow extends Frame {
 	private String filepath = null;
 	private boolean isSaved = true;
 	public volatile boolean isClosed = false;
+	
+	private CircuitBoard boardComponent;
 
 	public MainWindow() {
 		
@@ -32,17 +37,30 @@ public class MainWindow extends Frame {
             @Override
             public void windowClosing(WindowEvent e) { 
             	isClosed = true;
-            } 
+            }
         });
 		
-		setMenuBar(new MainMenuBar());
+		addComponentListener(new ComponentAdapter() {
+			
+			@Override
+		    public void componentResized(ComponentEvent componentEvent) {
+            	boardComponent.setSize(componentEvent.getComponent().getSize());
+		    }
+		});
+		
+		setLayout(new BorderLayout());
+		setJMenuBar(new MainMenuBar());
+		
+		add(boardComponent = new CircuitBoard(this.getSize()));
+		
 		
 		setIconImage(GuiInfo.ICON);
 		setLayout(null);
 		setSize(1280, 720);
 		setTitle(TITLE + " - " + (filepath != null ? filepath : "(Untitled)"));
 		setVisible(true);
-		
+        
+        
 	}
 
 	public String getFilepath() {
@@ -50,26 +68,22 @@ public class MainWindow extends Frame {
 	}
 	
 	public void setFilepath(String filepath) {
-		updateTitle();
 		this.filepath = filepath;
+		updateTitle();
 	}
 	
 	public void markDirty() {
-		updateTitle();
 		this.isSaved = false;
+		updateTitle();
+	}
+	
+	public void markSaved() {
+		this.isSaved = true;
+		updateTitle();
 	}
 	
 	public void updateTitle() {
 		setTitle(TITLE + " - " + (isSaved ? "" : "*") + (filepath != null ? filepath : "(Untitled)"));
-	}
-	
-	@Override
-	public void paintComponents(Graphics g) {
-		super.paintComponents(g);
-		//Graphics2D g2 = (Graphics2D) g.create();
-		g.drawImage(GuiInfo.ICON, 100, 100, this);
-		//g2.dispose();
-		
 	}
 	
 }
