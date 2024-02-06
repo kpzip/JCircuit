@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import xyz.kpzip.circuitsim.gui.GuiInfo;
 import xyz.kpzip.circuitsim.gui.menus.MainMenuBar;
 import xyz.kpzip.circuitsim.gui.menus.mainmenu.CircuitBoard;
+import xyz.kpzip.circuitsim.gui.menus.mainmenu.ComponentPicker;
 
 public class MainWindow extends JFrame {
 	
@@ -28,6 +29,8 @@ public class MainWindow extends JFrame {
 	public volatile boolean isClosed = false;
 	
 	private CircuitBoard boardComponent;
+	@SuppressWarnings("unused")
+	private ComponentPicker componentPicker;
 
 	public MainWindow() {
 		
@@ -51,11 +54,11 @@ public class MainWindow extends JFrame {
 		setLayout(new BorderLayout());
 		setJMenuBar(new MainMenuBar());
 		
-		add(boardComponent = new CircuitBoard(this.getSize()));
-		
+		add(boardComponent = new CircuitBoard(this.getSize()), BorderLayout.CENTER);
+		add(componentPicker = new ComponentPicker(), BorderLayout.EAST);
 		
 		setIconImage(GuiInfo.ICON);
-		setLayout(null);
+		//setLayout(null); // Fuck you
 		setSize(1280, 720);
 		setTitle(TITLE + " - " + (filepath != null ? filepath : "(Untitled)"));
 		setVisible(true);

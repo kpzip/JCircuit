@@ -9,17 +9,18 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 
-public class CircuitBoard extends JPanel {
+public class CircuitBoard extends JPanel implements Serializable {
 
 	/**
 	 * serial id
 	 */
 	private static final long serialVersionUID = -3931746356626980713L;
 	
-	public static final int BOUNDS = 1000;
+	public transient static final int BOUNDS = 1000;
 	
 	private transient volatile Point offset = new Point(0, 0);
 	
@@ -35,7 +36,7 @@ public class CircuitBoard extends JPanel {
             public void mousePressed(MouseEvent e) {
             	
                 mousePt = e.getPoint();
-                //repaint();
+                
             }
         });
         this.addMouseMotionListener(new MouseMotionAdapter() {

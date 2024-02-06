@@ -2,6 +2,7 @@ package xyz.kpzip.circuitsim.gui.menus.mainmenu;
 
 import java.awt.Cursor;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ComponentPicker extends JPanel {
@@ -14,7 +15,7 @@ public class ComponentPicker extends JPanel {
 	public ComponentPicker() {
 		setDoubleBuffered(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-		
+		add(new JButton("button"));
 		
 		setVisible(true);
 	}
