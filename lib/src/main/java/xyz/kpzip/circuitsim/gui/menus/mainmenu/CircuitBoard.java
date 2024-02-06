@@ -21,13 +21,13 @@ public class CircuitBoard extends JPanel {
 	
 	public static final int BOUNDS = 1000;
 	
-	private volatile Point offset = new Point(0, 0);
+	private transient volatile Point offset = new Point(0, 0);
 	
-	private volatile Point mousePt;
+	private transient volatile Point mousePt;
 
 	public CircuitBoard(Dimension size) {
 		setDoubleBuffered(true);
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		setSize(size);
 		
 		this.addMouseListener(new MouseAdapter() {
