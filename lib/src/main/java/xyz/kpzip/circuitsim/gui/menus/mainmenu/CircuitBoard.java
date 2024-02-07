@@ -1,6 +1,6 @@
 package xyz.kpzip.circuitsim.gui.menus.mainmenu;
 
-import static xyz.kpzip.circuitsim.gui.GuiInfo.*;
+import static xyz.kpzip.circuitsim.gui.GuiInfo.BACKGROUND_TEXTURE;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -10,8 +10,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
+
+import xyz.kpzip.circuitsim.gui.frames.PromptWindow;
+import xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit.VisualComponent;
+import xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit.VisualComponentType;
 
 public class CircuitBoard extends JPanel implements Serializable {
 
@@ -23,8 +29,11 @@ public class CircuitBoard extends JPanel implements Serializable {
 	public transient static final int BOUNDS = 1000;
 	
 	private transient volatile Point offset = new Point(0, 0);
-	
 	private transient volatile Point mousePt;
+	
+	private transient volatile VisualComponentType selectedComponent = null;
+	
+	private volatile List<VisualComponent> componentSprites = new ArrayList<VisualComponent>();
 
 	public CircuitBoard(Dimension size) {
 		setDoubleBuffered(true);
@@ -36,6 +45,14 @@ public class CircuitBoard extends JPanel implements Serializable {
             public void mousePressed(MouseEvent e) {
             	
                 mousePt = e.getPoint();
+                
+                if (selectedComponent != null) {
+                	if (selectedComponent.hasValue()) {
+                		new PromptWindow("Enter a value for component \"" + selectedComponent + "\": ", "Enter value");
+                	} else {
+                		addComponent(0);
+                	}
+                }
                 
             }
         });
@@ -56,6 +73,13 @@ public class CircuitBoard extends JPanel implements Serializable {
         setVisible(true);
 	}
 	
+	public void addComponent(double value) {
+		Point pos = (Point) mousePt.clone();
+		pos.translate(offset.x, offset.y);
+		componentSprites.add(new VisualComponent(pos, selectedComponent, value, selectedComponent.getNumConnectionPoints()));
+		repaint();
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -70,6 +94,15 @@ public class CircuitBoard extends JPanel implements Serializable {
                 g.drawImage(BACKGROUND_TEXTURE, x, y, this);
             }
         }
+        componentSprites.forEach((c) -> c.draw(g, this));
     }
+	
+	public void setComponentSelectionType(VisualComponentType type) {
+		this.selectedComponent = type;
+	}
+	
+	public Point getOffset() {
+		return offset;
+	}
 
 }

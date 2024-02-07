@@ -1,8 +1,6 @@
 package xyz.kpzip.circuitsim.gui.frames;
 
 import java.awt.BorderLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -43,14 +41,6 @@ public class MainWindow extends JFrame {
             }
         });
 		
-		addComponentListener(new ComponentAdapter() {
-			
-			@Override
-		    public void componentResized(ComponentEvent componentEvent) {
-            	boardComponent.setSize(componentEvent.getComponent().getSize());
-		    }
-		});
-		
 		setLayout(new BorderLayout());
 		setJMenuBar(new MainMenuBar());
 		
@@ -87,6 +77,10 @@ public class MainWindow extends JFrame {
 	
 	public void updateTitle() {
 		setTitle(TITLE + " - " + (isSaved ? "" : "*") + (filepath != null ? filepath : "(Untitled)"));
+	}
+	
+	public CircuitBoard getBoardComponent() {
+		return boardComponent;
 	}
 	
 }
