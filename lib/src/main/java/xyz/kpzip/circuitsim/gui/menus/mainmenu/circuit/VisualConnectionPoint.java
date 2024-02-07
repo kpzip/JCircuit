@@ -1,5 +1,6 @@
 package xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 import xyz.kpzip.circuitsim.simulator.Circuit;
@@ -14,11 +15,13 @@ public class VisualConnectionPoint implements Serializable {
 	private static int idCounter = 0;
 	
 	private int id;
+	private Point position;
 	
 	private transient Circuit.ConnectionPoint connectionPointCache = null;
 	
-	public VisualConnectionPoint() {
+	public VisualConnectionPoint(Point p) {
 		id = idCounter++;
+		this.position = p;
 	}
 	
 	public Circuit.ConnectionPoint getConnectionPoint(Circuit c) {
@@ -31,6 +34,10 @@ public class VisualConnectionPoint implements Serializable {
 	
 	public boolean hasId(int id) {
 		return this.id == id;
+	}
+	
+	public Point getPosition() {
+		return position;
 	}
 
 }

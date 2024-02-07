@@ -1,6 +1,6 @@
 package xyz.kpzip.circuitsim.gui.menus.mainmenu;
 
-import static xyz.kpzip.circuitsim.gui.GuiInfo.BACKGROUND_TEXTURE;
+import static xyz.kpzip.circuitsim.gui.GuiInfo.*;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -13,11 +13,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import xyz.kpzip.circuitsim.gui.frames.MainWindow;
 import xyz.kpzip.circuitsim.gui.frames.PromptWindow;
 import xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit.VisualComponent;
 import xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit.VisualComponentType;
+import xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit.VisualConnectionPoint;
 
 public class CircuitBoard extends JPanel implements Serializable {
 
@@ -32,6 +35,7 @@ public class CircuitBoard extends JPanel implements Serializable {
 	private transient volatile Point mousePt;
 	
 	private transient volatile VisualComponentType selectedComponent = null;
+	private transient volatile VisualConnectionPoint firstWireConnectionPoint;
 	
 	private volatile List<VisualComponent> componentSprites = new ArrayList<VisualComponent>();
 
@@ -46,9 +50,35 @@ public class CircuitBoard extends JPanel implements Serializable {
             	
                 mousePt = e.getPoint();
                 
+                //TODO check if pre-existing components were clicked on
+                for (int i = 0; i < componentSprites.size(); i++) {
+                	VisualComponent c = componentSprites.get(i);
+                	Point pos = (Point) mousePt.clone();
+                	pos.translate(-offset.x, -offset.y);
+                	pos.translate(-64, -125);
+                	if(c.isInside(pos)) {
+                		System.out.println("Clicked a component!");
+                		c.onClick(CircuitBoard.this, mousePt);
+                	}
+                }
+                if (selectedComponent == VisualComponentType.WIRE) {
+                	return;
+                }
+                
                 if (selectedComponent != null) {
                 	if (selectedComponent.hasValue()) {
-                		new PromptWindow("Enter a value for component \"" + selectedComponent + "\": ", "Enter value");
+                		new PromptWindow("Enter a value for component \"" + selectedComponent + "\": ", "Enter value", (ee) -> {
+                			PromptWindow window = (PromptWindow) ((JButton) ee.getSource()).getParent().getParent().getParent().getParent();
+                			try {
+                				double value = Double.parseDouble(window.getText());
+                				MainWindow.INSTANCE.getBoardComponent().addComponent(value);
+                			}
+                			catch(NumberFormatException n) {
+                				
+                			}
+                			window.setVisible(false);
+                			window.dispose();
+                		});
                 	} else {
                 		addComponent(0);
                 	}
@@ -74,9 +104,20 @@ public class CircuitBoard extends JPanel implements Serializable {
 	}
 	
 	public void addComponent(double value) {
+		addComponent(value, selectedComponent);
+	}
+	
+	public void addComponent(double value, VisualComponentType type) {
 		Point pos = (Point) mousePt.clone();
 		pos.translate(offset.x, offset.y);
-		componentSprites.add(new VisualComponent(pos, selectedComponent, value, selectedComponent.getNumConnectionPoints()));
+		componentSprites.add(new VisualComponent(pos, type, value, type.getNumConnectionPoints()));
+		repaint();
+	}
+	
+	public void addComponent(double value, VisualComponentType type, VisualConnectionPoint... points) {
+		Point pos = (Point) mousePt.clone();
+		pos.translate(offset.x, offset.y);
+		componentSprites.add(new VisualComponent(pos, type, value, type.getNumConnectionPoints(), points));
 		repaint();
 	}
 	
@@ -97,12 +138,24 @@ public class CircuitBoard extends JPanel implements Serializable {
         componentSprites.forEach((c) -> c.draw(g, this));
     }
 	
+	public VisualComponentType getSelectedComponent() {
+		return selectedComponent;
+	}
+	
 	public void setComponentSelectionType(VisualComponentType type) {
 		this.selectedComponent = type;
 	}
 	
 	public Point getOffset() {
 		return offset;
+	}
+	
+	public void setFirstWireConnectionPoint(VisualConnectionPoint point) {
+		this.firstWireConnectionPoint = point;
+	}
+	
+	public VisualConnectionPoint getFirstWireConnectionPoint() {
+		return firstWireConnectionPoint;
 	}
 
 }

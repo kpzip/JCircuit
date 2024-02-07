@@ -15,9 +15,9 @@ public final class GuiInfo {
 	
 	public static final Image ICON = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("assets/icon.png"));  
 	
-	public static final BufferedImage RESISTOR_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/wire.png"));
-	public static final BufferedImage BATTERY_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/wire.png"));
-	public static final BufferedImage GND_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/wire.png"));
+	public static final BufferedImage RESISTOR_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/resistor.png"));
+	public static final BufferedImage BATTERY_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/battery.png"));
+	public static final BufferedImage GND_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/ground.png"));
 	public static final BufferedImage WIRE_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/wire.png"));
 	public static final BufferedImage BACKGROUND_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/bg.png"));
 	

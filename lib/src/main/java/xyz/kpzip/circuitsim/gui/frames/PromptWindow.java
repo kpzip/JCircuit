@@ -2,6 +2,7 @@ package xyz.kpzip.circuitsim.gui.frames;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,7 @@ public class PromptWindow extends JFrame {
 	
 	private JTextField text;
 	
-	public PromptWindow(String label, String title) {
+	public PromptWindow(String label, String title, ActionListener a) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setIconImage(GuiInfo.ICON);
 		setTitle(title);
@@ -29,19 +30,10 @@ public class PromptWindow extends JFrame {
 		add(text = new JTextField());
 		text.setPreferredSize(new Dimension(100, 25));
 		JButton button = new JButton("ok");
-		button.addActionListener((e) -> {
-			try {
-				double value = Double.parseDouble(getText());
-				MainWindow.INSTANCE.getBoardComponent().addComponent(value);
-			}
-			catch(NumberFormatException n) {
-				
-			}
-			this.setVisible(false);
-			this.dispose();
-		});
+		button.addActionListener(a);
 		add(button);
-		setSize(new Dimension(250, 150));
+		setSize(new Dimension(280, 120));
+		setLocationRelativeTo(MainWindow.INSTANCE);
 		
 		setVisible(true);
 	}
