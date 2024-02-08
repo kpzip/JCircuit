@@ -41,7 +41,8 @@ public class VisualComponent implements Serializable {
 		this.type = type;
 		this.value = value;
 		this.connectionPoints = new VisualConnectionPoint[connectionPoints];
-		for (int i = 0; i < this.connectionPoints.length; i++) this.connectionPoints[i] = new VisualConnectionPoint(i == 0 ? new Point(position.x + type.getImage().getWidth()/2, position.y) : new Point(position.x + type.getImage().getWidth()/2, position.y + type.getImage().getHeight()), l);
+		for (int i = 0; i < this.connectionPoints.length; i++) this.connectionPoints[i] = new VisualConnectionPoint(i == 0 ? new Point(position.x, position.y - type.getImage().getHeight()/2) : new Point(position.x, position.y + type.getImage().getHeight()/2), l);
+		position.translate(-type.getImage().getWidth()/2, -type.getImage().getHeight()/2);
 	}
 	
 	public VisualComponent(Point position, VisualComponentType type, double value, int connectionPoints, List<VisualConnectionPoint> l, VisualConnectionPoint... visualConnectionPoints) {
@@ -50,6 +51,7 @@ public class VisualComponent implements Serializable {
 		this.value = value;
 		this.connectionPoints = new VisualConnectionPoint[connectionPoints];
 		System.arraycopy(visualConnectionPoints, 0, this.connectionPoints, 0, visualConnectionPoints.length);
+		position.translate(-type.getImage().getWidth()/2, -type.getImage().getHeight()/2);
 	}
 	
 	public void draw(Graphics graphics, CircuitBoard board) {
@@ -77,14 +79,16 @@ public class VisualComponent implements Serializable {
     			catch(NumberFormatException n) {
     				
     			}
+				board.repaint();
 				window.setVisible(false);
 				window.dispose();
 			});
 			return;
 		}
 		
-		VisualConnectionPoint clickedon = pos.y < position.y + (type.getImage().getHeight()/2) ? connectionPoints[0] : connectionPoints[1];
+		VisualConnectionPoint clickedon = type.getNumConnectionPoints() < 2 ? connectionPoints[0] : (pos.y < position.y + (type.getImage().getHeight()/2) ? connectionPoints[0] : connectionPoints[1]);
 		if (board.getSelectedComponent() == VisualComponentType.WIRE) {
+
 			
 			if (board.getFirstWireConnectionPoint() == null || board.getFirstWireConnectionPoint() == clickedon) {
 				board.setFirstWireConnectionPoint(clickedon);

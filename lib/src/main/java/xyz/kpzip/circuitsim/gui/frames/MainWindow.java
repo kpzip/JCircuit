@@ -83,4 +83,8 @@ public class MainWindow extends JFrame {
 		return boardComponent;
 	}
 	
+	public void setBoardComponent(CircuitBoard boardComponent) {
+		this.boardComponent = boardComponent;
+	}
+	
 }

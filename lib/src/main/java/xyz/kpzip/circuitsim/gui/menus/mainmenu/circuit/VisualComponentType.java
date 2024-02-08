@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import xyz.kpzip.circuitsim.gui.GuiInfo;
 import xyz.kpzip.circuitsim.simulator.Circuit;
 import xyz.kpzip.circuitsim.simulator.components.Component;
+import xyz.kpzip.circuitsim.simulator.components.passive.Capacitor;
 import xyz.kpzip.circuitsim.simulator.components.passive.Resistor;
 import xyz.kpzip.circuitsim.simulator.components.source.Battery;
 import xyz.kpzip.circuitsim.simulator.components.switches.SPSTSwitch;
@@ -22,6 +23,9 @@ public enum VisualComponentType {
 	GROUND((points, value, c) -> {
 		return new SPSTSwitch(points[0], c.getGround(), true);
 	}, 1, false, "Ground Connection", GuiInfo.GND_TEXTURE, ""),
+	CAPACITOR((points, value, c) -> {
+		return new Capacitor(points[0], points[1], value/1000000);
+	}, 2, true, "Capacitor", GuiInfo.CAPACITOR_TEXTURE, "uF"),
 	DELETE(null, 0, false, null, null, null);
 	
 	private volatile ComponentFactory<?> factory;

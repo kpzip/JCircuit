@@ -1,6 +1,13 @@
 package xyz.kpzip.circuitsim.gui.menus.simulation;
 
-public class SimulationSettings {
+import java.io.Serializable;
+
+public class SimulationSettings implements Serializable {
+	
+	/**
+	 * serial id
+	 */
+	private static final long serialVersionUID = -2963659414393888711L;
 	
 	private volatile long simulationTimeMs;
 	private volatile boolean resetUponStart;

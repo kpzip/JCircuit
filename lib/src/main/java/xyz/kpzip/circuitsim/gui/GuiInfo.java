@@ -20,6 +20,7 @@ public final class GuiInfo {
 	public static final BufferedImage GND_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/ground.png"));
 	public static final BufferedImage WIRE_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/wire.png"));
 	public static final BufferedImage BACKGROUND_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/bg.png"));
+	public static final BufferedImage CAPACITOR_TEXTURE = readUnsafe(ClassLoader.getSystemResource("assets/capacitor.png"));
 	
 	
 	public static final NumberFormatter NUMBER_FORMATTER;

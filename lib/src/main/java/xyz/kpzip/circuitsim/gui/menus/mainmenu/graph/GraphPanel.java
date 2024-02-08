@@ -19,7 +19,7 @@ public class GraphPanel extends JPanel {
 	
 	private static final Point ORIGIN_OFFSET = new Point(25, 25);
 	
-	private static final double Y_SCALE = 1;
+	private static final double Y_SCALE = 0.1;
 	
 	private static final int RESOLUTION = 100;
 	
@@ -53,6 +53,12 @@ public class GraphPanel extends JPanel {
 //				
 //				System.out.println("x prev: " + prevxval);
 //				System.out.println("y prev: " + prevyval);
+				if (yval < 0) {
+					yval = -yval;
+				}
+				if (prevyval < 0) {
+					yval = -prevyval;
+				}
 				
 				int x1 = (int) ((prevxval/getXScale()) * getGraphWidth() + ORIGIN_OFFSET.x);
 				int y1 = getHeight() - (int) ((prevyval/Y_SCALE) * getGraphHeight() + ORIGIN_OFFSET.y);
@@ -60,8 +66,8 @@ public class GraphPanel extends JPanel {
 				int x2 = (int) ((xval/getXScale()) * getGraphWidth() + ORIGIN_OFFSET.x);
 				int y2 = getHeight() - (int) ((yval/Y_SCALE) * getGraphHeight() + ORIGIN_OFFSET.y);
 				
-				g.setColor(/* v.getColor() */ new Color(0, 255, 0));
-				if (y1 >= 0 && y2 >= 0) g.drawLine(x1, y1, x2, y2);
+				g.setColor( v.getColor()  /* new Color(0, 255, 0) */);
+				g.drawLine(x1, y1 - 2, x2, y2 - 2);
 				prevxval = xval;
 				prevyval = yval;
 			}

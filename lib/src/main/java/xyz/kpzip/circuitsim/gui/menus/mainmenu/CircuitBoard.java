@@ -37,7 +37,7 @@ public class CircuitBoard extends JPanel implements Serializable {
 	
 	public transient static final int BOUNDS = 1000;
 	
-	private transient volatile Point offset = new Point(0, 0);
+	private volatile Point offset = new Point(0, 0);
 	private transient volatile Point mousePt;
 	
 	private transient volatile VisualComponentType selectedComponent = null;
@@ -67,6 +67,7 @@ public class CircuitBoard extends JPanel implements Serializable {
                 		if (selectedComponent == VisualComponentType.DELETE) {
                 			componentSprites.remove(i);
                 			if (c.getType() == VisualComponentType.WIRE) {
+                				repaint();
                 				return;
                 			}
                 			List<VisualConnectionPoint> toRemove = new LinkedList<VisualConnectionPoint>();
@@ -82,10 +83,13 @@ public class CircuitBoard extends JPanel implements Serializable {
                
                 			}
                 			connections.removeAll(toRemove);
+                			repaint();
                 			return;
                 		}
                 		c.onClick(CircuitBoard.this, mousePt);
+                		break;
                 	}
+                	repaint();
                 }
                 if (selectedComponent == VisualComponentType.WIRE || selectedComponent == VisualComponentType.DELETE) {
                 	return;
@@ -93,7 +97,7 @@ public class CircuitBoard extends JPanel implements Serializable {
                 
                 if (selectedComponent != null) {
                 	if (selectedComponent.hasValue()) {
-                		new PromptWindow("Enter a value for component \"" + selectedComponent + "\": ", "Enter value", (ee) -> {
+                		new PromptWindow("Enter a value for component \"" + selectedComponent.getName() + "\": ", "Enter value", (ee) -> {
                 			PromptWindow window = (PromptWindow) ((JButton) ee.getSource()).getParent().getParent().getParent().getParent();
                 			try {
                 				double value = Double.parseDouble(window.getText());
@@ -104,6 +108,7 @@ public class CircuitBoard extends JPanel implements Serializable {
                 			}
                 			window.setVisible(false);
                 			window.dispose();
+                			
                 		});
                 	} else {
                 		addComponent(0);
@@ -256,6 +261,10 @@ public class CircuitBoard extends JPanel implements Serializable {
 	
 	public List<VisualComponent> getComponentSprites() {
 		return componentSprites;
+	}
+	
+	public void init() {
+		mousePt = new Point(0, 0);
 	}
 
 }

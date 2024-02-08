@@ -16,8 +16,8 @@ public class VisualConnectionPoint implements Serializable {
 	
 	private static int idCounter = 0;
 	
-	private int id;
-	private Point position;
+	private final int id;
+	private volatile Point position;
 	
 	private transient Circuit.ConnectionPoint connectionPointCache = null;
 	private transient SimulationGraph voltageData = null;
