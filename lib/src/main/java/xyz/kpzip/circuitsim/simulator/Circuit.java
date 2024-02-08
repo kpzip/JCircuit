@@ -183,6 +183,14 @@ public class Circuit {
 		connectionPointIndex = ++connectionPointCheckerIndex;
 	}
 	
+	public ArrayList<Component> getComponents() {
+		return components;
+	}
+	
+	public TreeSet<ConnectionPoint> getConnectionPoints() {
+		return connectionPoints;
+	}
+	
 	public class ConnectionPoint implements Comparable<ConnectionPoint> {
 		
 		//id 0 is ground, negative is not part of the circuit

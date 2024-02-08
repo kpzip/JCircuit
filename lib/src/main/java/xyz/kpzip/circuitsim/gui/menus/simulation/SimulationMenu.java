@@ -3,6 +3,8 @@ package xyz.kpzip.circuitsim.gui.menus.simulation;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import xyz.kpzip.circuitsim.gui.frames.MainWindow;
+import xyz.kpzip.circuitsim.gui.frames.graph.GraphFrame;
 import xyz.kpzip.circuitsim.gui.frames.simulation.SimulationSettingsFrame;
 
 public class SimulationMenu extends JMenu {
@@ -44,7 +46,8 @@ public class SimulationMenu extends JMenu {
 		public RunSimulationMenuItem() {
 			super("Run Simulation");
 			addActionListener((actionlistener) -> {
-				//TODO start simulation
+				MainWindow.INSTANCE.getBoardComponent().simulate();
+				new GraphFrame();
 			});
 		}
 		

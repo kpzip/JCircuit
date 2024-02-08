@@ -2,9 +2,9 @@ package xyz.kpzip.circuitsim.gui.menus.simulation;
 
 public class SimulationSettings {
 	
-	private long simulationTimeMs;
-	private boolean resetUponStart;
-	private int maxStepMs;
+	private volatile long simulationTimeMs;
+	private volatile boolean resetUponStart;
+	private volatile long maxStepMs;
 	
 
 	public SimulationSettings() {
@@ -33,12 +33,12 @@ public class SimulationSettings {
 	}
 
 
-	public int getMaxStepMs() {
+	public long getMaxStepMs() {
 		return maxStepMs;
 	}
 
 
-	public void setMaxStepMs(int maxStepMs) {
+	public void setMaxStepMs(long maxStepMs) {
 		this.maxStepMs = maxStepMs;
 	}
 

@@ -35,6 +35,11 @@ public class ConnectionPointPair {
 		return Objects.equals(first, other.first) && Objects.equals(second, other.second);
 	}
 	
+	@Override
+	public String toString() {
+		return first.toString() + " " + second.toString(); 
+	}
+	
 	
 
 }

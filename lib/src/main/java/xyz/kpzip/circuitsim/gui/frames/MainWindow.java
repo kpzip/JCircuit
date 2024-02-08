@@ -44,7 +44,7 @@ public class MainWindow extends JFrame {
 		setLayout(new BorderLayout());
 		setJMenuBar(new MainMenuBar());
 		
-		add(boardComponent = new CircuitBoard(this.getSize()), BorderLayout.CENTER);
+		add(boardComponent = new CircuitBoard(), BorderLayout.CENTER);
 		add(componentPicker = new ComponentPicker(), BorderLayout.EAST);
 		
 		setIconImage(GuiInfo.ICON);

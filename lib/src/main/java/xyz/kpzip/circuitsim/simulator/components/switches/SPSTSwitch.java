@@ -19,12 +19,12 @@ public class SPSTSwitch extends Abstract2NodeComponent {
 
 	@Override
 	public double currentDependence() {
-		return on ? 1.0 : 0.0;
+		return on ? 0.0 : 1.0;
 	}
 
 	@Override
 	public double voltageDependence() {
-		return on ? 0.0 : 1.0;
+		return on ? 1.0 : 0.0;
 	}
 
 	@Override

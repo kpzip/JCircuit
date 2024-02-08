@@ -1,10 +1,13 @@
 package xyz.kpzip.circuitsim.gui.frames.simulation;
 
-import static xyz.kpzip.circuitsim.gui.GuiInfo.*;
+import static xyz.kpzip.circuitsim.gui.GuiInfo.ICON;
+import static xyz.kpzip.circuitsim.gui.GuiInfo.NUMBER_FORMATTER;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -20,11 +23,9 @@ public class SimulationSettingsFrame extends JFrame {
 	 * serial id
 	 */
 	private static final long serialVersionUID = 2750943814802799936L;
-	
-	private SimulationSettings settings;
 
 	public SimulationSettingsFrame() {
-		settings = new SimulationSettings();
+		SimulationSettings settings = MainWindow.INSTANCE.getBoardComponent().getSettings();
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(520, 800);
@@ -53,9 +54,19 @@ public class SimulationSettingsFrame extends JFrame {
 		
 		JPanel startat0 = new JPanel(new GridLayout(1, 0));
 		startat0.add(new JLabel("Start all sources at 0V?"));
-		
-		startat0.add(new JCheckBox((Icon)null, settings.isResetUponStart()));
+		JCheckBox startat0box;
+		startat0.add(startat0box = new JCheckBox((Icon)null, settings.isResetUponStart()));
 		add(startat0);
+		
+		JPanel applyButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		JButton button;
+		applyButtonPanel.add(button = new JButton("Apply"));
+		button.addActionListener((e) -> {
+			settings.setSimulationTimeMs((Long) timeText.getValue());
+			settings.setMaxStepMs((Long) maxtimestepText.getValue());
+			settings.setResetUponStart(startat0box.isSelected());
+		});
+		add(applyButtonPanel);
 		
 		
 		setVisible(true);

@@ -2,8 +2,10 @@ package xyz.kpzip.circuitsim.gui.menus.mainmenu.circuit;
 
 import java.awt.Point;
 import java.io.Serializable;
+import java.util.List;
 
 import xyz.kpzip.circuitsim.simulator.Circuit;
+import xyz.kpzip.circuitsim.util.SimulationGraph;
 
 public class VisualConnectionPoint implements Serializable {
 
@@ -18,10 +20,12 @@ public class VisualConnectionPoint implements Serializable {
 	private Point position;
 	
 	private transient Circuit.ConnectionPoint connectionPointCache = null;
+	private transient SimulationGraph voltageData = null;
 	
-	public VisualConnectionPoint(Point p) {
+	public VisualConnectionPoint(Point p, List<VisualConnectionPoint> l) {
 		id = idCounter++;
 		this.position = p;
+		l.add(this);
 	}
 	
 	public Circuit.ConnectionPoint getConnectionPoint(Circuit c) {
@@ -38,6 +42,19 @@ public class VisualConnectionPoint implements Serializable {
 	
 	public Point getPosition() {
 		return position;
+	}
+	
+	public SimulationGraph getVoltageData() {
+		return voltageData;
+	}
+	
+	public void setVoltageData(SimulationGraph voltageData) {
+		this.voltageData = voltageData;
+	}
+	
+	@Override
+	public String toString() {
+		return "Connection point: " + id;
 	}
 
 }

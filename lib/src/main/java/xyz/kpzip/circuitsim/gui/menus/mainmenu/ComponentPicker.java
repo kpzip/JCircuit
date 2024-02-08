@@ -26,12 +26,14 @@ public class ComponentPicker extends JPanel {
 		JButton battery = new ComponentButton("Battery", VisualComponentType.BATTERY);
 		JButton gnd = new ComponentButton("Ground", VisualComponentType.GROUND);
 		JButton none = new ComponentButton("Clear Selection", null);
+		JButton delete = new ComponentButton("Delete Components", VisualComponentType.DELETE);
 		
 		add(resistor);
 		add(wire);
 		add(battery);
 		add(gnd);
 		add(none);
+		add(delete);
 		
 		setVisible(true);
 	}
