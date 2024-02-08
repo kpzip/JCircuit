@@ -112,6 +112,15 @@ public class VisualComponent implements Serializable {
 	}
 	
 	public boolean isInside(Point test) {
+		if (this.type == VisualComponentType.WIRE) {
+			Point p1 = connectionPoints[0].getPosition();
+			Point p2 = connectionPoints[1].getPosition();
+			double m = ((double)p1.y - p2.y)/(p1.x - p2.x);
+			if (p1.x == p2.x) m = Math.sqrt(Double.MAX_VALUE);
+			double b = -m * p1.x + p1.y;
+			double d = Math.abs(-m * test.x + test.y - b)/Math.sqrt(m * m + 1);
+			return d < 25;
+		}
 		return test.y > position.y && test.y < position.y + type.getImage().getHeight() &&
 				test.x > position.x && test.x < position.x + type.getImage().getWidth();
 	}

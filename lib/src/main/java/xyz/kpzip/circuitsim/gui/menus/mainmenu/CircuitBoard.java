@@ -66,6 +66,9 @@ public class CircuitBoard extends JPanel implements Serializable {
                 	if(c.isInside(pos)) {
                 		if (selectedComponent == VisualComponentType.DELETE) {
                 			componentSprites.remove(i);
+                			if (c.getType() == VisualComponentType.WIRE) {
+                				return;
+                			}
                 			List<VisualConnectionPoint> toRemove = new LinkedList<VisualConnectionPoint>();
                 			toRemove.addAll(Arrays.asList(c.getConnectionPoints()));
                 			for (int j = 0; j < componentSprites.size(); j++) {
