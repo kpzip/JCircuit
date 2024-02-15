@@ -1,14 +1,14 @@
 [![build](https://github.com/kpzip/Java-Circuit-Demo/actions/workflows/gradle.yml/badge.svg)](https://github.com/kpzip/Java-Circuit-Demo/actions/workflows/gradle.yml)
 
-# Java Circuit Demo
+# JCircuit
 
-Simple demonstration and GUI for a java circuit simulator.
+Java based gui circuit simulator based on [KSPICE](https://github.com/kpzip/KSPICE)
 
 ## Table of Contents
-1. [Beginning](#java-circuit-demo)
+1. [Beginning](#jcircuit)
 2. [Quick Start](#quick-start-guide)
 3. [License](#license)
-4. [Documentation](#documentation)
+4. [Planned Features](#planned-features-improvements)
 5. [Dependencies](#dependencies)
 6. [Building](#building)
 
@@ -16,49 +16,19 @@ Simple demonstration and GUI for a java circuit simulator.
 ## Quick Start Guide
 
 Download the latest release and run the jar file. You should see a gui pop up. You can navigate this UI to design a circuit and run the siumlation.
-> [!NOTE]
-> If you pass in the commandline argument --nogui (or -n) the program will run in command line mode and run a simulation based on a provided circuit.json file.
+Click on components on the right and then click on the grid to place them. Use the wire tool to conenct components together and make sure to place a ground node!
 
 ## License
 
 Java Circuit Demo © 2024 is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1)
 
-## Documentation
+## Planned Features / Improvements
 
-The GUI is designed to be relatively intuitive and easy to use. Simply build an electric circuit by clicking on component icons and placing them on the drawing. Hit the run button to run the simulation and you will be able to see the current represented by the animated dotted lines, and the voltage, represented by the color of the components and connection points.
-
-
-
-
-Class ``Circuit`` extends ``Object``
-> Contains data about an electric circuit, such as a set of connection points and a list of components
-> Contains a method, simulationStep which calculates the voltage of each connection point and the current through each component, updates the components and connection points' values, and advances the siumlation by the specified time step.
-> Contains a factory method for Connection points
-
-
-Class ``ConnectionPoint`` extends ``Object`` implements ``Comparable<ConnectionPoint>``
-> Represents a point which components can connect to.
-> Stores an id, a voltage, and a reference to the circuit it is a member of.
-> Contains equals, hashCode, toString, and compareTo methods
-
-
-Interface ``Component``  
-> Represents a component
-> contains a method connectionPointCount, which returns the number of points in the circuit that this component connects to.
-> contains a method connectionCount, which returns the number of paths current can take through this device
-> contains a method connections, which returns the pairs of points representing each path current can take through this device
-> contains a method constraints, which returns a ``double`` array representing this components mathematical dependencies on the votages across and the currents through each of its connections
-> contains a method updateCurrent, which takes in an array of doubles, representing the calculated currents through this device
-> contains a method differential, which takes in the elapsed time and updates this component's properties according to the time elapsed. By default does nothing
-> contains a method reset, which resets all time varying properties of this components
-
-
-Abstract Class ``Abstract2NodeComponent`` extends ``Object`` implements ``Component``
-> Contains functionality common to all components that connect only 2 points.
-> Stores a reference to both Connection Points which it connects to, and a value for the current through this device.
-> Provides an isReversed method to be used by subclasses in order to determine the orientation of this components
-> Provides implementations for all methods defined in ``Component``
-> contains 3 abstract methods currentDependence, voltageDependence, and constantDependence, which make it easier for implementors to define the mathematical behavior of this component
+in order of priority:
+1. Saving/Loading Functionality \(Ideally use .asc format\)
+2. Improved Simulator code to better approximate real world components
+3. Support for semiconductors
+4. Fix project setup to not have a nested 'lib' subproject and to properly depend on KSPICE
 
 
 ## Dependencies
